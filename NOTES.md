@@ -8,6 +8,9 @@
 
 ## Decisions
 
+API planning: Decided to keep the Task model simple and only include the fields needed for the assignment. 
+Planned four CRUD endpoints before implementing the database.
+
 ### PHP version before Symfony
 I decided to first build the API with plain PHP and MySQL.
 This will help me understand the API and database flow before
@@ -18,3 +21,51 @@ rebuilding it with Symfony and Doctrine.
 - Used Codex as a development assistant.
 - Changes are made in small steps.
 - I review and understand changes before committing them.
+
+
+
+
+## Task model & API design
+
+I reviewed the initial API design with Codex. I decided to keep the API deliberately simple and avoid adding features that were not part of the requirements.  
+I chose PATCH instead of PUT because tasks should support partial updates, for example changing only completed.  
+I also decided that title is required, description is optional, completed defaults to false, and created_at is generated automatically.
+
+## Database setup:
+ Created the MySQL database manually in DBeaver and created the task table based on the data model I had planned.
+
+ 
+
+----------------------------------------------------------------------------------------------
+
+
+## Checklist 
+
+## Starta projektet + Git – skapa mappen/repo och en minimal grundstruktur. KLAR 
+
+## Bestäm API:t och Task-modellen – t.ex. att en task har id, title, description, completed, created_at. KLAR 
+
+API-endpoints - 4 stycken 
+GET / tasks - list tasks - 200 ok, JSON array 
+POST / tasks - create a task - 201 Created task 
+PATCH / Update selected fields - 200 ok 
+DELETE / Delete a task - 204 no content, no response. 
+
+
+
+## Skapa MySQL-databasen med SQL ← här gör du databasen. KLAR 30e sept kl 13.44 
+
+
+Koppla PHP till MySQL med PDO.
+
+Bygg GET /tasks.
+
+Bygg POST /tasks.
+
+Bygg PATCH /tasks/{id}.
+
+Bygg DELETE /tasks/{id}.
+
+Lägg till validering och felhantering.
+
+Testa hela CRUD-flödet och städa upp.
