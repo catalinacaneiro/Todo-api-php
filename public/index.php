@@ -156,5 +156,28 @@ if ($method === 'PATCH' && preg_match('#^/tasks/([1-9][0-9]*)$#', $path, $matche
     exit;
 }
 
+if ($method === 'DELETE' && preg_match('#^/tasks/([1-9][0-9]*)$#', $path, $matches)) {
+    $id = $matches[1];
+
+    try {
+        $pdo = require __DIR__ . '/../src/Database.php';
+        $statement = $pdo->prepare('DELETE FROM task WHERE id = :id');
+        $statement->execute(['id' => $id]);
+
+        if ($statement->rowCount() === 0) {
+            http_response_code(404);
+            echo json_encode(['error' => 'Task not found']);
+            exit;
+        }
+
+        http_response_code(204);
+    } catch (PDOException $exception) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Could not delete task']);
+    }
+
+    exit;
+}
+
 http_response_code(404);
 echo json_encode(['error' => 'Not found']);

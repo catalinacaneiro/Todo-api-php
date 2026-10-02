@@ -61,13 +61,23 @@ I also decided that title is required, description is optional, completed defaul
 - Returns 404 if the task does not exist.
 - Returns 400 for invalid input or if no update fields are supplied.
 - Tested manually with curl.
+## DELETE /tasks/{id}
 
-Decision:
+- Deletes a task by ID.
+- Uses a prepared DELETE statement.
+- Uses rowCount() to determine whether a task existed.
+- Returns 204 No Content after successful deletion.
+- Returns 404 if the task does not exist.
+- Tested manually with curl:
+  - Existing task: 204 No Content
+  - Same task again: 404 Not Found
+
+## Decision:
 Codex suggested allowing an empty PATCH `{}` as a successful no-op.
 I decided to return 400 instead because a PATCH request should contain
 at least one field to update.
 
-Tests:
+## Tests:
 - Updated completed on task 2: 200 OK
 - Empty JSON object: 400 Bad Request
 - Non-existing task: 404 Not Found
