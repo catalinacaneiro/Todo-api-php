@@ -34,7 +34,16 @@ I also decided that title is required, description is optional, completed defaul
 ## Database setup:
  Created the MySQL database manually in DBeaver and created the task table based on the data model I had planned.
 
- 
+## GET /tasks
+- Implemented the first API endpoint.
+- Reads the request method and path in index.php.
+- Reuses the existing PDO connection.
+- Fetches tasks from the task table and returns JSON.
+- First tested with an empty table → [].
+- Added a test task manually in DBeaver and verified that the API returned it correctly.
+- Reviewed and understood the implementation before committing.
+
+
 
 ----------------------------------------------------------------------------------------------
 
@@ -45,8 +54,8 @@ I also decided that title is required, description is optional, completed defaul
 
 ## Bestäm API:t och Task-modellen – t.ex. att en task har id, title, description, completed, created_at. KLAR 
 
-API-endpoints - 4 stycken 
-GET / tasks - list tasks - 200 ok, JSON array 
+## API-endpoints - 4 stycken KLAR
+## GET / tasks - list tasks - 200 ok, JSON array KLAR - fre 2 okt 
 POST / tasks - create a task - 201 Created task 
 PATCH / Update selected fields - 200 ok 
 DELETE / Delete a task - 204 no content, no response. 
