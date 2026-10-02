@@ -22,6 +22,8 @@ rebuilding it with Symfony and Doctrine.
 - Changes are made in small steps.
 - I review and understand changes before committing them.
 
+- Codex suggested allowing an empty PATCH {} as a successful no-op. I decided to return 400 Bad Request instead, because a PATCH request should contain at least one field to update.
+
 
 
 
@@ -42,6 +44,34 @@ I also decided that title is required, description is optional, completed defaul
 - First tested with an empty table → [].
 - Added a test task manually in DBeaver and verified that the API returned it correctly.
 - Reviewed and understood the implementation before committing.
+
+## POST /tasks
+- Reads a JSON request body.
+- Validates title, description and completed.
+- Uses a prepared statement to safely insert data.
+- Returns the created task with 201 Created.
+- Tested manually with curl.
+- Verified the new row in DBeaver.
+
+## PATCH /tasks/{id}
+
+- Supports partial updates of title, description and completed.
+- Only supplied fields are updated.
+- Uses prepared statements.
+- Returns 404 if the task does not exist.
+- Returns 400 for invalid input or if no update fields are supplied.
+- Tested manually with curl.
+
+Decision:
+Codex suggested allowing an empty PATCH `{}` as a successful no-op.
+I decided to return 400 instead because a PATCH request should contain
+at least one field to update.
+
+Tests:
+- Updated completed on task 2: 200 OK
+- Empty JSON object: 400 Bad Request
+- Non-existing task: 404 Not Found
+
 
 
 
@@ -65,11 +95,11 @@ DELETE / Delete a task - 204 no content, no response.
 ## Skapa MySQL-databasen med SQL ← här gör du databasen. KLAR 30e sept kl 13.44 
 
 
-Koppla PHP till MySQL med PDO.
+## Koppla PHP till MySQL med PDO.
 
-Bygg GET /tasks.
+## Bygg GET /tasks.
 
-Bygg POST /tasks.
+## Bygg POST /tasks.
 
 Bygg PATCH /tasks/{id}.
 
